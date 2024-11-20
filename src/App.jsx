@@ -1,35 +1,37 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+
+import Display from "./Display"
+import Buttons from "./Buttons"
+import styles from "./App.module.css"
+import { useState } from "react";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [output,setOutput]=useState("");//we will use this output value in display box 
+  
+
+  function handleButtonClick(value){
+    if(value==='C'){
+      setOutput("");
+    }else if(value==="="){
+
+      const result=eval(output);
+      setOutput(result);
+
+    }else{
+      let updatedvalue=output+value;
+      setOutput(updatedvalue);
+    }
+  }
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React  </h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div className={styles.calculator}>
+      
+      <Display value={output}/>
+      <Buttons onButtonClick={handleButtonClick}/>
+      
+    </div>
   )
 }
 
 export default App
+
+
